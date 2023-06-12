@@ -1,10 +1,13 @@
-package com.bank.loanmanagement.customer;
+package com.bank.loanmanagement.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +24,11 @@ public class Customer {
     private String name;
 
     private String email;
+
+    @Column(nullable = false)
+    private String transactionPassword;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Account> accounts = new ArrayList<>();
 }
 
