@@ -1,22 +1,25 @@
 package com.bank.loanmanagement.customer;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
+@Entity
+@Table(name = "customers")
 public class Customer {
-    private String firstName;
-    private String lastName;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
     private String email;
-    private String phoneNumber;
-    private String accountNumber;
-    private String address;
-    private String city;
-    private String state;
-    private String postalCode;
 }
 
