@@ -28,6 +28,6 @@ public class FeignRequestInterceptor implements RequestInterceptor {
 
         ResponseEntity<AuthenticationResponse> responseEntity = restTemplate.exchange(accessTokenUri, HttpMethod.POST, requestEntity, AuthenticationResponse.class);
 
-        requestTemplate.header("Authorization", "Bearer " + responseEntity);
+        requestTemplate.header("Authorization", "Bearer " + responseEntity.getBody().getAccessToken());
     }
 }

@@ -1,15 +1,23 @@
 package com.bank.loanmanagement.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 
+@Builder
+@Setter
+@Getter
 @Entity
 @Table(name = "loans")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String borrower;
 
     @Column(name = "loan_amount")
     private double loanAmount;
@@ -23,67 +31,14 @@ public class Loan {
     @Column(name = "collateral_required")
     private boolean collateralRequired;
 
+    @Enumerated(EnumType.STRING)
     private LoanStatus loanStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
+    private String message;
 
-    // Other necessary fields such as customer information, loan status, etc.
+    private Double emi;
 
-    // Constructors, getters, and setters
+    private Double rateOfInterest;
 
-    public Loan() {
-        // Default constructor
-    }
-
-    public Loan(double loanAmount, String purpose, boolean creditCheckRequired, boolean collateralRequired) {
-        this.loanAmount = loanAmount;
-        this.purpose = purpose;
-        this.creditCheckRequired = creditCheckRequired;
-        this.collateralRequired = collateralRequired;
-    }
-
-    // Getters and setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getLoanAmount() {
-        return loanAmount;
-    }
-
-    public void setLoanAmount(double loanAmount) {
-        this.loanAmount = loanAmount;
-    }
-
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
-
-    public boolean isCreditCheckRequired() {
-        return creditCheckRequired;
-    }
-
-    public void setCreditCheckRequired(boolean creditCheckRequired) {
-        this.creditCheckRequired = creditCheckRequired;
-    }
-
-    public boolean isCollateralRequired() {
-        return collateralRequired;
-    }
-
-    public void setCollateralRequired(boolean collateralRequired) {
-        this.collateralRequired = collateralRequired;
-    }
-
+    private Integer tenure;
 }

@@ -9,8 +9,11 @@ import lombok.*;
 @Builder
 public class LoanRequest {
 
+    private String userName;
     private double loanAmount;
     private String purpose;
     private boolean creditCheckRequired;
     private boolean collateralRequired;
+    private double rateOfInterest;
+    private int tenure;
 }

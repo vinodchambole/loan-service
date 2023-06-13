@@ -6,7 +6,8 @@ public enum LoanStatus {
     APPROVED("Approved"),
     REJECTED("Rejected"),
     DISBURSED("Disbursed"),
-    COMPLETED("Completed");
+    COMPLETED("Completed"),
+    DEFAULTED("Defaulted");
 
     private final String status;
 
