@@ -5,7 +5,7 @@ import com.bank.loanmanagement.controller.response.AccountCreationResponse;
 import com.bank.loanmanagement.entity.AccountType;
 import com.bank.loanmanagement.entity.Loan;
 import com.bank.loanmanagement.entity.LoanStatus;
-import com.bank.loanmanagement.exception.LoanNotExist;
+import com.bank.loanmanagement.exception.LoanNotFoundException;
 import com.bank.loanmanagement.exception.UnauthorizedUserException;
 import com.bank.loanmanagement.repository.LoanRepository;
 import com.bank.loanmanagement.security.user.Role;
@@ -76,12 +76,12 @@ public class LoanService {
 
     public LoanStatus getStatus(User user, String id) {
         return loanRepository.findById(Long.parseLong(id)).map(Loan::getLoanStatus)
-                .orElseThrow(() -> new LoanNotExist("Loan not exist by id: " + id));
+                .orElseThrow(() -> new LoanNotFoundException("Loan not exist by id: " + id));
     }
 
     public Loan getLoanById(User user, String id) {
         return loanRepository.findById(Long.parseLong(id))
-                .orElseThrow(() -> new LoanNotExist("Loan not exist by id: " + id));
+                .orElseThrow(() -> new LoanNotFoundException("Loan not exist by id: " + id));
     }
 
     public Loan approve(User user, String id, LoanApprovalRequest request) {
@@ -91,7 +91,7 @@ public class LoanService {
                     loan.setMessage(request.getMessage());
                     Loan save = loanRepository.save(loan);
                     return save;
-                }).orElseThrow(() -> new LoanNotExist("Loan not exist by id: " + id));
+                }).orElseThrow(() -> new LoanNotFoundException("Loan not exist by id: " + id));
     }
 
     public Loan disburse(User user, String id, LoanDisburseRequest request) {
@@ -119,7 +119,7 @@ public class LoanService {
                     } else {
                         throw new RuntimeException("Loan status is not approved or invalid");
                     }
-                }).orElseThrow(() -> new LoanNotExist("Loan not exist by id: " + id));
+                }).orElseThrow(() -> new LoanNotFoundException("Loan not exist by id: " + id));
     }
 
     public double calculateEMI(double principal, double interestRate, int tenure) {
